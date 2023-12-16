@@ -53,4 +53,28 @@ public class UIManager : MonoBehaviour
     {
         UnSubscribeEvents();
     }
+
+    public void Play()
+    {
+        UISignals.Instance.onPlay?.Invoke();
+        CoreUISignals.Instance.onClosePanel?.Invoke(1);
+        InputSignals.Instance.onEnableInput?.Invoke();
+        //CameraSignals.Instance.onSetCamera?.Invoke();
+    }
+
+    public void NextLevel()
+    {
+        CoreGameSignals.Instance.onNextLevel?.Invoke();
+        CoreGameSignals.Instance.onReset?.Invoke();
+    }
+
+    public void RestartLevel()
+    {
+        CoreGameSignals.Instance.onRestartLevel?.Invoke();
+    }
+
+    private void Start()
+    {
+        //Play();
+    }
 }

@@ -1,14 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CoreGameSignals : MonoBehaviour
 {
+    #region Singleton
     //Singleton
     public static CoreGameSignals Instance;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(Instance);
+            return;
+        }
+        Instance = this;
+    }
 
+    #endregion
     //Actions
     public UnityAction<byte> onLevelInitialize = delegate { };
     public UnityAction onClearActiveLevel = delegate { };
@@ -19,13 +28,5 @@ public class CoreGameSignals : MonoBehaviour
     public UnityAction onReset = delegate { };
     public Func<byte> onGetLevelValue = delegate { return 0; };
 
-    private void Awake()
-    {
-        if (Instance != null && Instance !=this)
-        {
-            Destroy(Instance);
-            return;
-        }
-        Instance = this;
-    }
+    
 }

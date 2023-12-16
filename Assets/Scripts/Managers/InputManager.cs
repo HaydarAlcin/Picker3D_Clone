@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         _data = GetInputData();
+        
     }
 
     private InputData GetInputData()

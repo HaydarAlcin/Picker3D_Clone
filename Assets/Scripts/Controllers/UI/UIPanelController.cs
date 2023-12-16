@@ -10,7 +10,7 @@ public class UIPanelController : MonoBehaviour
 
     private void Start()
     {
-        OnOpenPanel(UIPanelTypes.Level, 1);
+        OnOpenPanel(UIPanelTypes.Start, 1);
     }
 
     private void OnEnable()
