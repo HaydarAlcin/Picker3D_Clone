@@ -72,9 +72,4 @@ public class UIManager : MonoBehaviour
     {
         CoreGameSignals.Instance.onRestartLevel?.Invoke();
     }
-
-    private void Start()
-    {
-        //Play();
-    }
 }

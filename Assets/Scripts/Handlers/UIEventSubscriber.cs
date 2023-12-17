@@ -34,6 +34,7 @@ public class UIEventSubscriber : MonoBehaviour
         {
             case UIEventSubscriptionTypes.OnPlay:
                 button.onClick.AddListener(_manager.Play);
+                Debug.Log("calisti");
                 break;
             case UIEventSubscriptionTypes.OnNextLevel:
                 button.onClick.AddListener(_manager.NextLevel);

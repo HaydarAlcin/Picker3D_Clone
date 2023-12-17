@@ -8,11 +8,6 @@ public class UIPanelController : MonoBehaviour
 {
     [SerializeField] private List<Transform> layers = new List<Transform>();
 
-    private void Start()
-    {
-        OnOpenPanel(UIPanelTypes.Start, 1);
-    }
-
     private void OnEnable()
     {
         SubscribeEvents();

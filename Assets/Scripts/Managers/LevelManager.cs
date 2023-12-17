@@ -101,7 +101,7 @@ public class LevelManager : MonoBehaviour
         CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte) (_currentLevel %totalLevelCount));
 
         //UISignals
-        CoreUISignals.Instance.onOpenPanel(UIPanelTypes.Start, 0);
+        CoreUISignals.Instance.onOpenPanel(UIPanelTypes.Start, 1);
     }
 
     
