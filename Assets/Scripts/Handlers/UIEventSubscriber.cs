@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIEventSubscriber : MonoBehaviour
@@ -34,7 +33,6 @@ public class UIEventSubscriber : MonoBehaviour
         {
             case UIEventSubscriptionTypes.OnPlay:
                 button.onClick.AddListener(_manager.Play);
-                Debug.Log("calisti");
                 break;
             case UIEventSubscriptionTypes.OnNextLevel:
                 button.onClick.AddListener(_manager.NextLevel);
@@ -42,8 +40,6 @@ public class UIEventSubscriber : MonoBehaviour
             case UIEventSubscriptionTypes.OnRestartLevel:
                 button.onClick.AddListener(_manager.RestartLevel);
                 break;
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
 

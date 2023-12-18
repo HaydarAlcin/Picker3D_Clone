@@ -12,13 +12,14 @@ public class LevelManager : MonoBehaviour
     private OnLevelLoaderCommand _levelLoaderCommand;
     private OnLevelDestroyerCommand _levelDestroyerCommand;
 
-    private short _currentLevel;
+    private byte _levelID;
+    private byte _currentLevel;
     private LevelData _levelData;
 
     private void Awake()
     {
         _levelData = GetLevelData();
-        _currentLevel = GetActiveLevel();
+        _levelID = GetCurrentLevel();
 
         Init();
     }
@@ -32,14 +33,23 @@ public class LevelManager : MonoBehaviour
 
     private LevelData GetLevelData()
     {
-        return Resources.Load<CD_Level>(path: "Data/CD_Level").Levels[_currentLevel];
+        return Resources.Load<CD_Level>(path: "Data/CD_Level").Levels[_levelID];
     }
 
-    private byte GetActiveLevel()
+    //private byte GetActiveLevel()
+    //{
+    //    return (byte)_levelID;
+    //}
+
+    private byte GetCurrentLevel()
     {
-       return (byte) _currentLevel;
+        return Resources.Load<CD_Level>(path: "Data/CD_Level").CurrentLevel;
     }
 
+    //private byte SetActiveLevel()
+    //{
+        
+    //}
     
 
 
@@ -66,10 +76,11 @@ public class LevelManager : MonoBehaviour
 
     private void OnNextLevel()
     {
-        _currentLevel++;
+        _levelID++;
+        Resources.Load<CD_Level>(path: "Data/CD_Level").CurrentLevel = _levelID;
         CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
         CoreGameSignals.Instance.onReset?.Invoke();
-        CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte)(_currentLevel % totalLevelCount));
+        CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte)(_levelID));
 
     }
 
@@ -77,12 +88,12 @@ public class LevelManager : MonoBehaviour
     {
         CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
         CoreGameSignals.Instance.onReset?.Invoke();
-        CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte)(_currentLevel % totalLevelCount));
+        CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte)(_levelID));
     }
 
     private byte OnGetLevelValue()
     {
-        return (byte)_currentLevel;
+        return (byte)_levelID;
     }
 
     //Removing listeners
@@ -98,8 +109,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        CoreGameSignals.Instance.onLevelInitialize?.Invoke((byte) (_currentLevel %totalLevelCount));
-
+        if (_levelID>=4)
+        {
+            _levelID = 0;
+        }
+        CoreGameSignals.Instance.onLevelInitialize?.Invoke( _levelID);
         //UISignals
         CoreUISignals.Instance.onOpenPanel(UIPanelTypes.Start, 1);
     }

@@ -103,9 +103,9 @@ public class InputManager : MonoBehaviour
                         _moveVector.x = _data.horizontalInputSpeed / 10f * mouseDeltaPos.x;
                     }
 
-                    else if(mouseDeltaPos.x < _data.horizontalInputSpeed) 
+                    else if (mouseDeltaPos.x < _data.horizontalInputSpeed)
                     {
-                        _moveVector.x = -_data.horizontalInputSpeed / 10f * mouseDeltaPos.x;
+                        _moveVector.x = -_data.horizontalInputSpeed / 10f * -mouseDeltaPos.x;
                     }
 
                     else
@@ -113,6 +113,7 @@ public class InputManager : MonoBehaviour
                         _moveVector.x = Mathf.SmoothDamp(-_moveVector.x, 0, ref _currentVelocity, _data.clampSpeed);
                     }
 
+                    //_moveVector.x = mouseDeltaPos.x;
                     _mousePosition = Input.mousePosition;
 
                     InputSignals.Instance.onInputDragged(new HorizontalInputParams

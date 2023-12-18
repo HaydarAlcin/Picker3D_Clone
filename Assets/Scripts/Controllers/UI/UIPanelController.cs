@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UIPanelController : MonoBehaviour
 {
@@ -17,7 +14,7 @@ public class UIPanelController : MonoBehaviour
     {
         CoreUISignals.Instance.onOpenPanel += OnOpenPanel;
         CoreUISignals.Instance.onClosePanel += OnClosePanel;
-        CoreUISignals.Instance.onCloseAllPanels += OnCloseAllPanel;
+        CoreUISignals.Instance.onCloseAllPanels += OnCloseAllPanels;
 
     }
 
@@ -35,13 +32,14 @@ public class UIPanelController : MonoBehaviour
         
     }
 
-    private void OnCloseAllPanel()
+    private void OnCloseAllPanels()
     {
         foreach (var layer in layers)
         {
-            if (layers.Count <= 0) return;
+            if (layer.childCount <= 0) return;
 
             Destroy(layer.GetChild(0).gameObject);
+            
         }
     }
 
@@ -50,7 +48,7 @@ public class UIPanelController : MonoBehaviour
     {
         CoreUISignals.Instance.onOpenPanel -= OnOpenPanel;
         CoreUISignals.Instance.onClosePanel -= OnClosePanel;
-        CoreUISignals.Instance.onCloseAllPanels -= OnCloseAllPanel;
+        CoreUISignals.Instance.onCloseAllPanels -= OnCloseAllPanels;
     }
 
     private void OnDisable()

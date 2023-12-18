@@ -16,6 +16,7 @@ public class OnLevelLoaderCommand
     //In CommandPattern, functions are generally not given special names; they are called Execute. (Translation Sentence)
     public void Execute(byte levelIndex)
     {
+        Debug.Log(levelIndex);
         Object.Instantiate(original:Resources.Load<GameObject>(path: $"Prefabs/LevelPrefabs/level {levelIndex}"),_levelHolder);
 
     }

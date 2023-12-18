@@ -15,37 +15,43 @@ public class UIManager : MonoBehaviour
         CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
         CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
         CoreGameSignals.Instance.onReset += OnReset;
+        CoreGameSignals.Instance.onStageAreaSuccessful += OnStageAreaSuccessful;
     }
 
-    public void OnLevelInitialize(byte i)
+    private void OnLevelInitialize(byte i)
     {
         CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level,0);
         UISignals.Instance.onSetLevelValue?.Invoke((byte)CoreGameSignals.Instance.onGetLevelValue?.Invoke());
     }
 
-    public void OnLevelSuccessful()
+    private void OnLevelSuccessful()
     {
         CoreUISignals.Instance.onOpenPanel(UIPanelTypes.Win, 2);
+        Debug.Log("win");
     }
 
-    public void OnLevelFailed()
+    private void OnLevelFailed()
     {
         CoreUISignals.Instance.onOpenPanel(UIPanelTypes.Fail, 2);
     }
 
-    public void OnReset()
+    private void OnReset()
     {
         CoreUISignals.Instance.onCloseAllPanels?.Invoke();
         CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start,1);
     }
 
-
+    private void OnStageAreaSuccessful(byte stageValue)
+    {
+        UISignals.Instance.onSetStageColor?.Invoke(stageValue);
+    }
     private void UnSubscribeEvents()
     {
         CoreGameSignals.Instance.onLevelInitialize -= OnLevelInitialize;
         CoreGameSignals.Instance.onLevelSuccessful -= OnLevelSuccessful;
         CoreGameSignals.Instance.onLevelFailed -= OnLevelFailed;
         CoreGameSignals.Instance.onReset -= OnReset;
+        CoreGameSignals.Instance.onStageAreaSuccessful -= OnStageAreaSuccessful;
     }
 
 
@@ -59,17 +65,19 @@ public class UIManager : MonoBehaviour
         UISignals.Instance.onPlay?.Invoke();
         CoreUISignals.Instance.onClosePanel?.Invoke(1);
         InputSignals.Instance.onEnableInput?.Invoke();
-        //CameraSignals.Instance.onSetCamera?.Invoke();
+        CameraSignals.Instance.onSetCameraTarget?.Invoke();
     }
 
     public void NextLevel()
     {
         CoreGameSignals.Instance.onNextLevel?.Invoke();
         CoreGameSignals.Instance.onReset?.Invoke();
+        CoreUISignals.Instance.onClosePanel?.Invoke(2);
     }
 
     public void RestartLevel()
     {
+        CoreUISignals.Instance.onClosePanel?.Invoke(2);
         CoreGameSignals.Instance.onRestartLevel?.Invoke();
     }
 }
