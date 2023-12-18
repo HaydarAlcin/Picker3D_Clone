@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TOTAL POINTS : 0'
+  m_text: 'TOTAL POINTS : 100'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b55e1584795e4c44cbd530483359e699, type: 2}
   m_sharedMaterial: {fileID: 2524076245017955669, guid: b55e1584795e4c44cbd530483359e699,
